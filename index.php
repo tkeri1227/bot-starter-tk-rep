@@ -446,14 +446,14 @@ try {
 }
 
 $body = $response->getBody();
-error_log("$body");
+//error_log("$body");
 
 
-$json = json_decode(@file_get_contents($apiurl.$location),false);
+//$json = json_decode(@file_get_contents($apiurl.$location),false);
 
-$lat = $json->results[0]->geometry->location->lat;
+$lat = $body->results[0]->geometry->location->lat;
 
-$lon = $json->results[0]->geometry->location->lng;
+$lon = $body->results[0]->geometry->location->lng;
 
 error_log("$lat $lon");
 // メイン処理
