@@ -306,16 +306,16 @@ function getTranslation($arg)
 {
     switch ($arg) {
         case 'overcast clouds':
-            return 'どんよりした雲<br class="nosp">（雲85~100%）';
+            return 'どんよりした雲（雲85~100%）';
             break;
         case 'broken clouds':
-            return '千切れ雲<br class="nosp">（雲51~84%）';
+            return '千切れ雲（雲51~84%）';
             break;
         case 'scattered clouds':
-            return '散らばった雲<br class="nosp">（雲25~50%）';
+            return '散らばった雲（雲25~50%）';
             break;
         case 'few clouds':
-            return '少ない雲<br class="nosp">（雲11~25%）';
+            return '少ない雲（雲11~25%）';
             break;
         case 'light rain':
             return '小雨';
@@ -443,6 +443,10 @@ try {
     $now_temp = $response_now['main']['temp']; // 現在の気温
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
 
+    error_log("都市名：$cityz");
+    error_log("現在の天気：$now_des $now_temp,湿度：$now_humidity");
+
+
 foreach( $weather_list as $items ):
     $temp = $items['main']['temp']; // 気温
     $temp_max = $items['main']['temp_max']; // 最高気温
@@ -456,8 +460,9 @@ foreach( $weather_list as $items ):
     $datetime->setTimestamp( $items['dt'] )->setTimeZone(new DateTimeZone('Asia/Tokyo')); // 日時 - 協定世界時 (UTC)を日本標準時 (JST)に変換
     $date =  $datetime->format('Y年m月d日'); //　日付
     $time = $datetime->format('H:i'); // 時間
-    $cnt++; endforeach;
-    error_log("都市名：$city");
+    $cnt++; 
+    error_log("$date $time：$weather_des $temp ,湿度：$humidity");
+endforeach;
 
 } catch (Exception $e) {
     echo '<p class="m-normal-txt">' . $e->getMessage() . '</p>';
