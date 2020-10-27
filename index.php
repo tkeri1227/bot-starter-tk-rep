@@ -423,6 +423,7 @@ try {
         }
     }
 
+     error_log($location);
     // ID
     $area_id = $location ? $location : array_shift(array_keys($areas));
 
