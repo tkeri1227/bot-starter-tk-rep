@@ -462,13 +462,13 @@ error_log("$lat $lon");
 // メイン処理
 try {
          error_log($location);
-    if (isset($location)) {
-        if (!array_key_exists($location, $areas)) {
-            $bot->replyText($event->getReplyToken(), "登録されていない都市名です");
+    // if (isset($location)) {
+    //     if (!array_key_exists($location, $areas)) {
+    //         $bot->replyText($event->getReplyToken(), "登録されていない都市名です");
 
-            throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
-        }
-    }
+    //         throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
+    //     }
+    // }
 
 
     // ID
