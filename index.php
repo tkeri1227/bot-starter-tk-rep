@@ -423,7 +423,7 @@ $lat = $json->results[0]->geometry->location->lat;
 
 $lon = $json->results[0]->geometry->location->lng;
 
-error_log($lat $lon);
+error_log("$lat $lon");
 // メイン処理
 try {
          error_log($location);
