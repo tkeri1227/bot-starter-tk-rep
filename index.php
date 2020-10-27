@@ -416,8 +416,9 @@ function getWeather($type, $area_id)
 
 // メイン処理
 try {
-    if (isset($_GET['area'])) {
-        if (!array_key_exists($_GET['area'], $areas)) {
+
+    if (isset($location)) {
+        if (!array_key_exists($location, $areas)) {
             throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
         }
     }
@@ -445,7 +446,7 @@ try {
 
     replyMultiMessage($bot, $event->getReplyToken(),
     new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("都市名：$city"),
-    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp\n湿度：$now_humidity"),
+    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
   );
 
 
