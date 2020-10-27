@@ -447,10 +447,11 @@ try {
 
 $body = $response->getBody();
 $json = json_decode($body);
-//error_log("$body");
+error_log("$json");
 
 
 //$json = json_decode(@file_get_contents($apiurl.$location),false);
+
 
 $lat = $json->results[0]->geometry->location->lat;
 
