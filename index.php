@@ -426,7 +426,7 @@ try {
 
     // ID
     $area_id = $areas[$location] ? $areas[$location] : array_shift(array_keys($areas));
-
+    error_log($area_id);
     // 5日間天気
     $response = getWeather('forecast', $area_id);
 
