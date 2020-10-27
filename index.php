@@ -409,10 +409,10 @@ function getIcon($arg)
     }
 }
 
-function getWeather($type, $area_id)
+function getWeather($type, $lat, $lng)
 {
     $api_base = 'https://api.openweathermap.org/data/2.5/';
-    $api_parm = '?id=' . $area_id . '&units=metric&appid=79ff4330900ac4740fbb13d69d959a1d';
+    $api_parm = '?lat=' . $lat . '&lng=' . $lng . '&units=metric&appid=79ff4330900ac4740fbb13d69d959a1d';
     $api_url = $api_base . $type . $api_parm;
 
     return json_decode(file_get_contents($api_url), true);
@@ -455,6 +455,8 @@ error_log("$body");
 $lat = $json->results[0]->geometry->location->lat;
 
 $lon = $json->results[0]->geometry->location->lng;
+$formatted_address = $json->results[0]->formatted_address;
+
 
 error_log("$lat $lon");
 // メイン処理
@@ -473,7 +475,7 @@ try {
     $area_id = $areas[$location] ? $areas[$location] : array_shift(array_keys($areas));
     error_log($area_id);
     // 5日間天気
-    $response = getWeather('forecast', $area_id);
+    $response = getWeather('forecast', $lat, $lon);
 
     $weather_list = $response['list']; // list配下
     $cnt = 0;
@@ -491,7 +493,7 @@ try {
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
 
     replyMultiMessage($bot, $event->getReplyToken(),
-    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("都市名：$city"),
+    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
     new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
   );
 
