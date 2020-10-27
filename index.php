@@ -472,8 +472,8 @@ try {
 
 
     // ID
-    $area_id = $areas[$location] ? $areas[$location] : array_shift(array_keys($areas));
-    error_log($area_id);
+    // $area_id = $areas[$location] ? $areas[$location] : array_shift(array_keys($areas));
+    // error_log($area_id);
     // 5日間天気
     $response = getWeather('forecast', $lat, $lon);
 
@@ -484,7 +484,7 @@ try {
     //$city = $areas[$city_id];
     $city = $location;
     // 現在の天気
-    $response_now = getWeather('weather', $area_id);
+    $response_now = getWeather('weather', $lat, $lon);
 
     $now_des = getTranslation($response_now['weather'][0]['description']); // 現在の天気説明
     $now_icon = getIcon($response_now['weather'][0]['description']); // 現在の天気アイコン（自分用）
