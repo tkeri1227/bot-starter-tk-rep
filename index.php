@@ -442,8 +442,11 @@ try {
     // $now_icon = $response_now['weather'][0]['icon']; // 現在の天気アイコン（公式のアイコンを使用）
     $now_temp = $response_now['main']['temp']; // 現在の気温
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
-    $bot->replyText($event->getReplyToken(), "都市名：$city");
-    $bot->replyText($event->getReplyToken(), "現在の天気：$now_des $now_temp,湿度：$now_humidity");
+
+    replyMultiMessage($bot, $event->getReplyToken(),
+    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("都市名：$city"),
+    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：$now_des $now_temp,湿度：$now_humidity"),
+  );
 
 
 foreach( $weather_list as $items ):
@@ -460,7 +463,7 @@ foreach( $weather_list as $items ):
     $date =  $datetime->format('Y年m月d日'); //　日付
     $time = $datetime->format('H:i'); // 時間
     $cnt++; 
-    $bot->replyText($event->getReplyToken(), "$date $time ：$weather_des $temp ,湿度：$humidity");
+    //$bot->replyText($event->getReplyToken(), "$date $time ：$weather_des $temp ,湿度：$humidity");
 endforeach;
 
 } catch (Exception $e) {
