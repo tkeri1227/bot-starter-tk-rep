@@ -409,10 +409,10 @@ function getIcon($arg)
     }
 }
 
-function getWeather($type, $lat, $lng)
+function getWeather($type, $lat, $lon)
 {
     $api_base = 'https://api.openweathermap.org/data/2.5/';
-    $api_parm = '?lat=' . $lat . '&lng=' . $lng . '&units=metric&appid=79ff4330900ac4740fbb13d69d959a1d';
+    $api_parm = '?lat=' . $lat . '&lon=' . $lon . '&units=metric&appid=79ff4330900ac4740fbb13d69d959a1d';
     $api_url = $api_base . $type . $api_parm;
 
     return json_decode(file_get_contents($api_url), true);
@@ -447,7 +447,7 @@ try {
 
 $body = $response->getBody();
 $json = json_decode($body);
-error_log("$body");
+//error_log("$body");
 
 
 //$json = json_decode(@file_get_contents($apiurl.$location),false);
