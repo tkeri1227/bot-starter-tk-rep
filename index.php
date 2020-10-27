@@ -470,5 +470,19 @@ endforeach;
     echo '<p class="m-normal-txt">' . $e->getMessage() . '</p>';
 }
 }
+// 複数のメッセージをまとめて返信。引数はLINEBot、
+// 返信先、メッセージ(可変長引数)
+function replyMultiMessage($bot, $replyToken, ...$msgs) {
+  // MultiMessageBuilderをインスタンス化
+  $builder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+  // ビルダーにメッセージを全て追加
+  foreach($msgs as $value) {
+    $builder->add($value);
+  }
+  $response = $bot->replyMessage($replyToken, $builder);
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
 
 ?>
