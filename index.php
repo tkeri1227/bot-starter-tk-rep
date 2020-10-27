@@ -414,6 +414,16 @@ function getWeather($type, $area_id)
     return json_decode(file_get_contents($api_url), true);
 }
 
+
+$apiurl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+
+$json = json_decode(@file_get_contents($apiurl.$location),false);
+
+$lat = $json->results[0]->geometry->location->lat;
+
+$lon = $json->results[0]->geometry->location->lng;
+
+error_log($lat $lon);
 // メイン処理
 try {
          error_log($location);
