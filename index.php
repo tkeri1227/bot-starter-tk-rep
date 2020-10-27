@@ -445,7 +445,7 @@ try {
 
     replyMultiMessage($bot, $event->getReplyToken(),
     new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("都市名：$city"),
-    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：$now_des $now_temp,湿度：$now_humidity"),
+    new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp\n湿度：$now_humidity"),
   );
 
 
