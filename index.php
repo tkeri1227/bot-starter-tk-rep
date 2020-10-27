@@ -294,11 +294,11 @@ foreach ($events as $event) {
 //   }
     // エリアリスト
 $areas = array(
-    1850144 => '東京都',
-    6940394 => '埼玉県（さいたま市）',
-    2130404 => '北海道（江別市）',
-    1856035 => '沖縄県（那覇市）',
-    1853909 => '大阪府（大阪市）'
+    '東京都' => 1850144,
+    '埼玉県（さいたま市）' => 6940394,
+    '北海道（江別市）' => 2130404,
+    '沖縄県（那覇市）' => 1856035,
+    '大阪府（大阪市）' => 1853909
 );
 
 // 日本語に変換
@@ -425,7 +425,7 @@ try {
 
 
     // ID
-    $area_id = $location ? $location : array_shift(array_keys($areas));
+    $area_id = $areas[$location] ? $areas[$location] : array_shift(array_keys($areas));
 
     // 5日間天気
     $response = getWeather('forecast', $area_id);
@@ -433,9 +433,9 @@ try {
     $weather_list = $response['list']; // list配下
     $cnt = 0;
 
-    $city_id = $response['city']['id'];
-    $city = $areas[$city_id];
-
+    //$city_id = $response['city']['id'];
+    //$city = $areas[$city_id];
+    $city = $location
     // 現在の天気
     $response_now = getWeather('weather', $area_id);
 
