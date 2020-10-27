@@ -435,7 +435,7 @@ try {
 
     //$city_id = $response['city']['id'];
     //$city = $areas[$city_id];
-    $city = $location
+    $city = $location;
     // 現在の天気
     $response_now = getWeather('weather', $area_id);
 
