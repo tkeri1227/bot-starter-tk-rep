@@ -427,7 +427,7 @@ $api_key = 'AIzaSyCIaJrhuadNLAhjGCpVhfDzvwzxEW_wSZs';
  Geocoding (latitude/longitude lookup)
  住所から緯度経度を取得
  */
-$address = '東京都北区赤羽';
+
 
 try {
     $response = $http_client->request('GET', $url, [
@@ -437,7 +437,7 @@ try {
         'query' => [
             'key' => $api_key,
             'language' => 'ja',
-            'address' => $address,
+            'address' => $location,
         ],
         'verify' => false,
     ]);
