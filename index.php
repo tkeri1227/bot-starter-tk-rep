@@ -446,7 +446,7 @@ try {
 }
 
 $body = $response->getBody();
-//error_log("$body");
+error_log("$body");
 
 
 //$json = json_decode(@file_get_contents($apiurl.$location),false);
