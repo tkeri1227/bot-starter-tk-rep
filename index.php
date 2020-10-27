@@ -1,5 +1,9 @@
 <?php
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+
+
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -415,12 +419,9 @@ function getWeather($type, $area_id)
 }
 
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-
 $http_client = new Client();
 $url = 'https://maps.googleapis.com/maps/api/geocode/json';
-$api_key = '**********************************';
+$api_key = 'AIzaSyCIaJrhuadNLAhjGCpVhfDzvwzxEW_wSZs';
 
 /*
  Geocoding (latitude/longitude lookup)
@@ -445,7 +446,10 @@ try {
 }
 
 $body = $response->getBody();
-echo $body . PHP_EOL;
+error_log("$body");
+
+
+$json = json_decode(@file_get_contents($apiurl.$location),false);
 
 $lat = $json->results[0]->geometry->location->lat;
 
