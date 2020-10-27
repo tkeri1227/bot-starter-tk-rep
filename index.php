@@ -442,7 +442,7 @@ try {
     // $now_icon = $response_now['weather'][0]['icon']; // 現在の天気アイコン（公式のアイコンを使用）
     $now_temp = $response_now['main']['temp']; // 現在の気温
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
-    $bot->replyText($event->getReplyToken(), '都市名：$city');
+    $bot->replyText($event->getReplyToken(), "都市名：$city");
     error_log("現在の天気：$now_des $now_temp,湿度：$now_humidity");
 
 
