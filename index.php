@@ -447,7 +447,12 @@ try {
 
 $body = $response->getBody();
 $json = json_decode($body);
-error_log("$json");
+
+ if ($json->status == "ZERO_RESULTS") {
+        $bot->replyText($event->getReplyToken(), "類似する地名が見つかりません");
+
+        throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
+    }
 
 
 //$json = json_decode(@file_get_contents($apiurl.$location),false);
