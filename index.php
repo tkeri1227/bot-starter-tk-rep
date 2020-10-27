@@ -416,14 +416,14 @@ function getWeather($type, $area_id)
 
 // メイン処理
 try {
-
+         error_log($location);
     if (isset($location)) {
         if (!array_key_exists($location, $areas)) {
             throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
         }
     }
 
-     error_log($location);
+
     // ID
     $area_id = $location ? $location : array_shift(array_keys($areas));
 
