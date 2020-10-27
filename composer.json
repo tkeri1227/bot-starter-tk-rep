@@ -1,6 +1,7 @@
 {
     "require": {
         "fabpot/goutte": "^4.0",
-        "linecorp/line-bot-sdk": "^6.0"
+        "linecorp/line-bot-sdk": "^6.0",
+        "guzzlehttp/guzzle": "^7.2"
     }
 }

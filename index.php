@@ -415,9 +415,37 @@ function getWeather($type, $area_id)
 }
 
 
-$apiurl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
-$json = json_decode(@file_get_contents($apiurl.$location),false);
+$http_client = new Client();
+$url = 'https://maps.googleapis.com/maps/api/geocode/json';
+$api_key = '**********************************';
+
+/*
+ Geocoding (latitude/longitude lookup)
+ 住所から緯度経度を取得
+ */
+$address = '東京都北区赤羽';
+
+try {
+    $response = $http_client->request('GET', $url, [
+        'headers' => [
+            'Accept' => 'application/json',
+        ],
+        'query' => [
+            'key' => $api_key,
+            'language' => 'ja',
+            'address' => $address,
+        ],
+        'verify' => false,
+    ]);
+} catch (ClientException $e) {
+    throw $e;
+}
+
+$body = $response->getBody();
+echo $body . PHP_EOL;
 
 $lat = $json->results[0]->geometry->location->lat;
 
