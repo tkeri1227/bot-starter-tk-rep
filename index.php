@@ -443,7 +443,7 @@ try {
     $now_temp = $response_now['main']['temp']; // 現在の気温
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
 
-    error_log("都市名：$cityz");
+    error_log("都市名：$city");
     error_log("現在の天気：$now_des $now_temp,湿度：$now_humidity");
 
 
@@ -461,7 +461,7 @@ foreach( $weather_list as $items ):
     $date =  $datetime->format('Y年m月d日'); //　日付
     $time = $datetime->format('H:i'); // 時間
     $cnt++; 
-    error_log("$date $time：$weather_des $temp ,湿度：$humidity");
+    error_log("$date $time ：$weather_des $temp ,湿度：$humidity");
 endforeach;
 
 } catch (Exception $e) {
