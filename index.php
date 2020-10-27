@@ -457,7 +457,7 @@ foreach( $weather_list as $items ):
     $date =  $datetime->format('Y年m月d日'); //　日付
     $time = $datetime->format('H:i'); // 時間
     $cnt++; endforeach;
-    sys_log($now_des);
+    error_log("都市名："$city);
 
 } catch (Exception $e) {
     echo '<p class="m-normal-txt">' . $e->getMessage() . '</p>';
