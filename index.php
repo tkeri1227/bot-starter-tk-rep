@@ -154,7 +154,7 @@ foreach ($events as $event) {
     $lat = $json->results[0]->geometry->location->lat;
     $lon = $json->results[0]->geometry->location->lng;
     $formatted_address = $json->results[0]->formatted_address;
-   
+
     $city = $location;
     // 現在の天気
     $response_now = getWeather('weather', $lat, $lon);
@@ -168,21 +168,25 @@ foreach ($events as $event) {
         replyMultiMessage($bot, $event->getReplyToken(),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+            new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("検索地点", $formatted_address, $lat, $lon),
             new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11539, 52114110)
         );
     }else if(preg_match('/rain/',$response_now['weather'][0]['description'])){
         replyMultiMessage($bot, $event->getReplyToken(),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+            new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("検索地点", $formatted_address, $lat, $lon),
             new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11538, 51626522)
-        );    
+        );
     }else {
         replyMultiMessage($bot, $event->getReplyToken(),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+            new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("検索地点", $formatted_address, $lat, $lon),
             new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11537, 52002771)
-        );   
+        );
     }
+    error_log('test');
 
 }
 
