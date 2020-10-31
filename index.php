@@ -114,19 +114,19 @@ foreach ($events as $event) {
     $location = $event->getText();
   }
 
-$http_client = new Client();
-$url = 'https://maps.googleapis.com/maps/api/geocode/json';
-$api_key = 'AIzaSyCIaJrhuadNLAhjGCpVhfDzvwzxEW_wSZs';
+    $http_client = new Client();
+    $url = 'https://maps.googleapis.com/maps/api/geocode/json';
+    $api_key = 'AIzaSyCIaJrhuadNLAhjGCpVhfDzvwzxEW_wSZs';
 
-/*
- Geocoding (latitude/longitude lookup)
- 住所から緯度経度を取得
- */
+    /*
+     Geocoding (latitude/longitude lookup)
+     住所から緯度経度を取得
+    */
 
-try {
-    $response = $http_client->request('GET', $url, [
-        'headers' => [
-            'Accept' => 'application/json',
+    try {
+          $response = $http_client->request('GET', $url, [
+         'headers' => [
+         'Accept' => 'application/json',
         ],
         'query' => [
             'key' => $api_key,
@@ -134,35 +134,36 @@ try {
             'address' => $location,
         ],
         'verify' => false,
-    ]);
-} catch (ClientException $e) {
-    throw $e;
-}
+       ]);
+    } catch (ClientException $e) {
+       throw $e;
+    }
 
-$body = $response->getBody();
-$json = json_decode($body);
+    $body = $response->getBody();
+    $json = json_decode($body);
 
- if ($json->status == "ZERO_RESULTS") {
+     if ($json->status == "ZERO_RESULTS") {
         $bot->replyText($event->getReplyToken(), "類似する地名が見つかりません");
 
         throw new Exception('不正なパラメーターです。 セレクトボックスから選択してください。');
     }
 
-$lat = $json->results[0]->geometry->location->lat;
-$lon = $json->results[0]->geometry->location->lng;
-$formatted_address = $json->results[0]->formatted_address;
+    $lat = $json->results[0]->geometry->location->lat;
+    $lon = $json->results[0]->geometry->location->lng;
+    $formatted_address = $json->results[0]->formatted_address;
    
-$city = $location;
-// 現在の天気
-$response_now = getWeather('weather', $lat, $lon);
+    $city = $location;
+    // 現在の天気
+    $response_now = getWeather('weather', $lat, $lon);
 
-$now_des = getTranslation($response_now['weather'][0]['description']); // 現在の天気説明
-$now_temp = $response_now['main']['temp']; // 現在の気温
-$now_humidity = $response_now['main']['humidity']; // 現在の湿度
+    $now_des = getTranslation($response_now['weather'][0]['description']); // 現在の天気説明
+    $now_temp = $response_now['main']['temp']; // 現在の気温
+    $now_humidity = $response_now['main']['humidity']; // 現在の湿度
 
-replyMultiMessage($bot, $event->getReplyToken(),
-new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
-new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
-);
+    replyMultiMessage($bot, $event->getReplyToken(),
+        new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
+        new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+    );
+}
 
 ?>
