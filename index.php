@@ -84,16 +84,6 @@ function getWeather($type, $lat, $lon)
     return json_decode(file_get_contents($api_url), true);
 }
 
-// スタンプを返信。引数はLINEBot、返信先、
-// スタンプのパッケージID、スタンプID
-function replyStickerMessage($bot, $replyToken, $packageId, $stickerId) {
-  // StickerMessageBuilderの引数はスタンプのパッケージID、スタンプID
-  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder($packageId, $stickerId));
-  if (!$response->isSucceeded()) {
-    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
-  }
-}
-
 // Composerでインストールしたライブラリを一括読み込み
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -173,20 +163,26 @@ foreach ($events as $event) {
     $now_temp = $response_now['main']['temp']; // 現在の気温
     $now_humidity = $response_now['main']['humidity']; // 現在の湿度
 
-    replyMultiMessage($bot, $event->getReplyToken(),
-        new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
-        new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
-        new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11537, 52002770)
-    );
-
-    // //スタンプを返信
-    // if(preg_match('/cloud/',$response_now['weather'][0]['description'])){
-    //     replyStickerMessage($bot, $event->getReplyToken(), 11537, 52002770);
-    // }else if(preg_match('/rain/',$response_now['weather'][0]['description'])){
-    //     replyStickerMessage($bot, $event->getReplyToken(), 11538, 51626522);
-    // }else {
-    //     replyStickerMessage($bot, $event->getReplyToken(), 11539, 52114131);
-    // }
+    //スタンプを返信
+    if(preg_match('/cloud/',$response_now['weather'][0]['description'])){
+        replyMultiMessage($bot, $event->getReplyToken(),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+         new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11539, 52114110)
+        );
+    }else if(preg_match('/rain/',$response_now['weather'][0]['description'])){
+        replyMultiMessage($bot, $event->getReplyToken(),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+            new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11538, 51626522)
+        );    
+    }else {
+        replyMultiMessage($bot, $event->getReplyToken(),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
+            new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
+            new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11537, 52002771)
+        );   
+    }
 
 }
 
