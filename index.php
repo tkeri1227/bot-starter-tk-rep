@@ -168,7 +168,7 @@ foreach ($events as $event) {
         replyMultiMessage($bot, $event->getReplyToken(),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("地名：$formatted_address"),
             new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("現在の天気：\n$now_des\n温度：$now_temp ℃\n湿度：$now_humidity ％"),
-         new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11539, 52114110)
+            new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11539, 52114110)
         );
     }else if(preg_match('/rain/',$response_now['weather'][0]['description'])){
         replyMultiMessage($bot, $event->getReplyToken(),
