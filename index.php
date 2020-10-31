@@ -1,5 +1,8 @@
 <?php
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+
 // 複数のメッセージをまとめて返信。引数はLINEBot、
 // 返信先、メッセージ(可変長引数)
 function replyMultiMessage($bot, $replyToken, ...$msgs) {
