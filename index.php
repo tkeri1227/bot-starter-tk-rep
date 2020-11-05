@@ -186,8 +186,6 @@ foreach ($events as $event) {
             new \LINE\LINEBot\MessageBuilder\StickerMessageBuilder(11537, 52002771)
         );
     }
-    error_log('test');
-
 }
 
 ?>
